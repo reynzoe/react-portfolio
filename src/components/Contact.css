@@ -1,0 +1,10 @@
+.contact-section {
+    background: linear-gradient(135deg, #efeac4, #faf3ba);
+}
+
+.contact-card {
+    background: white;
+    border-radius: 15px;
+    max-width: 600px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}

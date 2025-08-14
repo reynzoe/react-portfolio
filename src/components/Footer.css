@@ -1,0 +1,28 @@
+.footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding-top: 0;
+    position: relative;
+}
+
+.wave {
+    display: block;
+    margin-bottom: -1px;
+}
+
+.footer-content {
+    padding: 30px 20px;
+}
+
+.social-icons a {
+    color: white;
+    margin: 0 10px;
+    font-size: 1.8rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: scale(1.2);
+    color: #fbc2eb;
+}

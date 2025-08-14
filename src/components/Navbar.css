@@ -1,0 +1,18 @@
+.navbar-transparent {
+    background: transparent;
+    transition: background 0.3s ease;
+}
+
+.navbar-colored {
+    background: rgba(0, 0, 0, 0.85);
+    transition: background 0.3s ease;
+}
+
+.nav-link-custom {
+    color: white !important;
+    transition: color 0.3s ease;
+}
+
+.nav-link-custom:hover {
+    color: #fbc2eb !important;
+}
