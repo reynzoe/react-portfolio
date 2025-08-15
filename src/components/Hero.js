@@ -30,7 +30,7 @@ export default function Hero() {
                             className="typed-text"
                         />
                         <p className="mt-3 hero-subtext">
-                            I create artsy, interactive, and user-friendly web experiences.
+                            I craft art, designs, and all things creative, bringing them to life as interactive and user-friendly web experiences.
                         </p>
                         <a href="#projects" className="custom-btn mt-3">
                             View My Work ✨

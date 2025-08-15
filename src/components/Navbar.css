@@ -9,17 +9,39 @@
 }
 
 .nav-link-custom {
-    color: #150707 !important;
-    transition: color 0.2s ease;
+    transition: color 0.3s ease;
+    font-weight: 500;
 }
 
-.nav-link-custom:hover {
+/* Dark text for transparent navbar */
+.nav-link-dark {
+    color: #150707 !important;
+}
+
+.nav-link-dark:hover {
     color: #ffcc00 !important; /* Accent hover color */
+}
+
+/* White text for colored navbar */
+.nav-link-white {
+    color: white !important;
+}
+
+.nav-link-white:hover {
+    color: #ffcc00 !important; /* Same accent hover color */
 }
 
 .brand-custom {
     font-size: 1.4rem;
     color: white !important;
+    transition: color 0.3s ease;
 }
 
+/* Optional: You can also make the brand text dynamic if needed */
+.navbar-transparent .brand-custom {
+    color: white !important; /* or change to dark if you prefer */
+}
 
+.navbar-colored .brand-custom {
+    color: white !important;
+}

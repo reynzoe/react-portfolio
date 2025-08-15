@@ -31,9 +31,27 @@ export default function PortfolioNavbar() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                     <Nav>
-                        <Nav.Link href="#about" className="nav-link-custom" onClick={handleNavClick}>About</Nav.Link>
-                        <Nav.Link href="#projects" className="nav-link-custom" onClick={handleNavClick}>Projects</Nav.Link>
-                        <Nav.Link href="#contact" className="nav-link-custom" onClick={handleNavClick}>Contact</Nav.Link>
+                        <Nav.Link
+                            href="#about"
+                            className={`nav-link-custom ${scrolled ? 'nav-link-white' : 'nav-link-dark'}`}
+                            onClick={handleNavClick}
+                        >
+                            About
+                        </Nav.Link>
+                        <Nav.Link
+                            href="#projects"
+                            className={`nav-link-custom ${scrolled ? 'nav-link-white' : 'nav-link-dark'}`}
+                            onClick={handleNavClick}
+                        >
+                            Projects
+                        </Nav.Link>
+                        <Nav.Link
+                            href="#contact"
+                            className={`nav-link-custom ${scrolled ? 'nav-link-white' : 'nav-link-dark'}`}
+                            onClick={handleNavClick}
+                        >
+                            Contact
+                        </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
