@@ -125,14 +125,63 @@ export default function Projects() {
             </div>
 
             {/* Modal for both images & video */}
-            <Modal show={showModal} onHide={() => setShowModal(false)} centered size="lg">
-                <Modal.Body className="p-0 text-center">
+            <Modal
+                show={showModal}
+                onHide={() => setShowModal(false)}
+                centered
+                size="lg"
+                contentClassName="custom-modal"
+            >
+                {/* Close button inside modal frame but above the image/video */}
+                <button
+                    onClick={() => setShowModal(false)}
+                    style={{
+                        position: 'absolute',
+                        top: '10px', // inside modal header area
+                        right: '10px',
+                        background: 'black',
+                        border: 'none',
+                        color: 'white',
+                        fontSize: '1.5rem',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: '50%',
+                        width: '40px',
+                        height: '40px',
+                        cursor: 'pointer',
+                        zIndex: 2000,
+                        opacity: 0.6,
+                        transition: 'opacity 0.3s ease, transform 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.opacity = 1;
+                        e.currentTarget.style.transform = 'scale(1.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.opacity = 0.6;
+                        e.currentTarget.style.transform = 'scale(1)';
+                    }}
+                >
+                    &times;
+                </button>
+
+                <Modal.Body
+                    className="p-0 text-center"
+                    style={{
+                        position: 'relative',
+                        backgroundColor: 'transparent',
+                    }}
+                >
                     {selectedImg && (
                         <img
                             src={selectedImg}
                             alt="Full artwork"
                             className="img-fluid"
-                            style={{ maxHeight: '90vh', objectFit: 'contain' }}
+                            style={{
+                                maxHeight: '90vh',
+                                objectFit: 'contain',
+                            }}
                         />
                     )}
                     {selectedVideo && (
@@ -144,14 +193,18 @@ export default function Projects() {
                             muted
                             playsInline
                             controls
-                            style={{ outline: 'none' }}
+                            style={{
+                                outline: 'none',
+                                maxHeight: '90vh',
+                            }}
                         />
                     )}
                 </Modal.Body>
             </Modal>
 
+
             {/* Apps & Software */}
-            <h2 className="mt-5 mb-5 fw-bold" data-aos="fade-up">Apps & Software</h2>
+            <h2 className="mt-5 mb-5 fw-bold" data-aos="fade-up"> Software Gallery</h2>
             <div className="container">
                 <div className="row justify-content-center">
                     {appProjects.map((p, i) => (
