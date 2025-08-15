@@ -1,24 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
+
 .hero-section {
     min-height: 100vh;
-    background-color: #fff8f0;
-    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20h40M20 0v40' stroke='%23ccc' stroke-width='1' stroke-dasharray='2,4'/%3E%3C/svg%3E");
+    background: linear-gradient(270deg, #ffe4d6, #fff8f0, #ffd1ba, #fff0e5);
+    background-size: 800% 800%;
+    animation: artFlow 20s ease infinite;
     color: #333;
+    padding: 50px 0;
+    position: relative;
+    overflow: hidden;
+}
+.hero-section::before,
+.hero-section::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 107, 107, 0.15);
+    filter: blur(60px);
+    animation: floatBlob 12s ease-in-out infinite alternate;
+}
+.hero-section::before {
+    width: 300px;
+    height: 300px;
+    top: -50px;
+    left: -80px;
 }
 
+.hero-section::after {
+    width: 250px;
+    height: 250px;
+    bottom: -40px;
+    right: -60px;
+    background: rgba(255, 142, 83, 0.15);
+}
+
+@keyframes floatBlob {
+    0% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(20px) translateX(15px); }
+    100% { transform: translateY(0px) translateX(0px); }
+}
+@keyframes artFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.hero-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    color: #ff6b6b;
+    text-shadow: 2px 2px rgba(255, 255, 255, 0.6);
+}
+
+.hero-subtext {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    color: #555;
+}
 
 .profile-pic {
     width: 250px;
     height: 250px;
     object-fit: cover;
     border-radius: 50%;
-    border: 5px solid white;
-    box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    border: 5px solid #fff;
+    box-shadow: 0 8px 30px rgba(255, 107, 107, 0.4);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
+.profile-pic:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 40px rgba(255, 107, 107, 0.6);
+}
+
+/* Typed text */
 .typed-text {
     font-size: 1.5rem;
-    font-weight: 500;
-    display: block;
-    margin-top: 10px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
 }
 
+/* Fancy Button */
+.custom-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+    transition: all 0.3s ease-in-out;
+}
+
+.custom-btn:hover {
+    background: linear-gradient(135deg, #ff8e53, #ff6b6b);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+    transform: translateY(-3px);
+}

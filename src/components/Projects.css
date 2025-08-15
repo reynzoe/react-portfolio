@@ -1,70 +1,223 @@
-/* 3D hover effect for app/software cards */
-.project-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Section styling */
+#projects {
+    background-color: #fffaf6; /* soft cream to match warm aesthetic */
+    font-family: "Poppins", sans-serif;
+}
+
+.gallery-img {
+    height: 250px; /* keeps all images same height */
+    object-fit: cover;
     cursor: pointer;
+    outline: none;
 }
-.project-card:hover {
-    transform: translateY(-10px) rotate3d(1, 1, 0, 8deg);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+
+.gallery-img:focus,
+.gallery-img:active {
+    outline: none;
+    box-shadow: none;
 }
-.project-icon {
-    font-size: 3rem;
-    margin-top: 1rem;
+
+/* Section headings */
+#projects h2 {
+    font-weight: 600;
+    font-size: 2.2rem;
+    color: #444;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+#projects h2::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    margin: 10px auto 0;
+    background: linear-gradient(90deg, #fbc2eb, #a6c1ee);
+    border-radius: 2px;
 }
 
 /* Art gallery grid */
 .art-gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
+    gap: 18px;
     padding: 0 20px;
-}
-.art-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-.art-item img:hover {
-    transform: scale(1.05) rotate3d(1, 1, 0, 5deg);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
-
-.art-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
-    align-items: stretch;
 }
 
 .art-item {
     overflow: hidden;
-    background-color: #000; /* Makes odd aspect ratios look cleaner */
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border-radius: 12px;
+    position: relative;
+    background-color: #000;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    transition: transform 0.25s ease;
+}
+
+.art-item:hover {
+    transform: translateY(-4px);
 }
 
 .art-item img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+    height: 300px; /* FIX: Set fixed height for all images */
+    object-fit: cover; /* Ensures cropping without distortion */
+    transition: transform 1.2s ease-in-out;
+    display: block; /* Prevents spacing issues */
 }
 
 .art-item img:hover {
-    transform: scale(1.05);
+    transform: scale(1.15);
 }
 
-/* Optional: style for the project cards */
+/* Modal overlay */
+.image-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.image-modal-content {
+    max-width: 85%;
+    max-height: 85%;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+}
+
+/* Apps & software cards */
 .project-card {
-    cursor: pointer;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    border: none;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0px 15px 25px rgba(0,0,0,0.15);
+}
+
+.project-icon {
+    font-size: 3rem;
+    color: #a6c1ee;
+    margin-top: 1rem;
+}
+
+.project-thumbnail-wrapper {
+    position: relative;
+    width: 100%;
+    height: 235px; /* uniform height */
+    background: #000; /* so borders aren't white if image doesn't fill */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.project-thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+    z-index: 1;
+}
+
+.project-thumbnail.fade-out {
+    opacity: 0;
+}
+
+/* Video preview styling */
+.project-video-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.project-video-preview.fade-in {
+    opacity: 1;
+}
+
+/* Play button overlay */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 3;
+}
+
+.project-thumbnail-wrapper:hover .video-overlay {
+    opacity: 1;
+}
+
+/* Hide play button when video is playing */
+.video-overlay.playing {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.project-card .card-title {
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.project-card .card-text {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Smooth video preview transitions */
+@keyframes videoFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(1.02);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.project-video-preview.fade-in {
+    animation: videoFadeIn 0.3s ease forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .project-thumbnail-wrapper {
+        height: 200px;
+    }
+
+    .video-overlay .fa-play-circle {
+        font-size: 40px !important;
+    }
 }

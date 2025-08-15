@@ -1,26 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
+
 .about-section {
-    background-color: #f8f9fa;
-    font-family: 'Poppins', sans-serif;
-    color: #333;
+    background: #ffffff; /* Clean white for contrast */
+    background-image: radial-gradient(circle at top left, rgba(255, 107, 107, 0.05), transparent 40%);
+
 }
 
 .about-title {
-    font-size: 2.5rem;
-    color: #222;
+    font-family: 'Pacifico', cursive;
+    font-size: 2.8rem;
+    color: #ff6b6b;
+    text-shadow: 1px 1px rgba(255, 255, 255, 0.6);
 }
 
 .about-content {
-    max-width: 700px;
+    max-width: 750px;
     text-align: center;
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.about-content:hover {
+    transform: translateY(-5px);
 }
 
 .about-text {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     line-height: 1.8;
     margin-bottom: 1rem;
 }
 
 .highlight {
-    color: #0d6efd; /* Bootstrap primary color */
+    color: #ff6b6b;
     font-weight: bold;
 }

@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
+import { FaInstagram, FaGithub, FaFacebookMessenger } from 'react-icons/fa';
 import './Contact.css';
 
 export default function Contact() {
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
+    const [fadeOut, setFadeOut] = useState(false);
 
     const validate = () => {
         let newErrors = {};
@@ -23,16 +25,36 @@ export default function Contact() {
         setErrors(newErrors);
         if (Object.keys(newErrors).length === 0) {
             setSubmitted(true);
+            setFadeOut(false); // Reset fade state
             setFormData({ name: '', email: '', message: '' });
         }
     };
 
+    // Auto-hide the alert after 3 seconds with fade-out animation
+    useEffect(() => {
+        if (submitted) {
+            const fadeTimer = setTimeout(() => setFadeOut(true), 2500); // Start fade after 2.5s
+            const hideTimer = setTimeout(() => setSubmitted(false), 3000); // Fully remove after 3s
+            return () => {
+                clearTimeout(fadeTimer);
+                clearTimeout(hideTimer);
+            };
+        }
+    }, [submitted]);
+
     return (
         <section id="contact" className="contact-section py-5">
             <div className="container" data-aos="fade-up">
-                <h2 className="text-center mb-4 fw-bold text-white">Contact Me</h2>
+                <h2 className="contact-title text-center mb-4 fw-bold">Contact Me</h2>
                 <div className="contact-card mx-auto p-4">
-                    {submitted && <Alert variant="success">Message sent successfully!</Alert>}
+                    {submitted && (
+                        <Alert
+                            variant="success"
+                            className={`fade-alert ${fadeOut ? 'fade-out' : ''}`}
+                        >
+                            Message sent successfully! 🎉
+                        </Alert>
+                    )}
                     <Form onSubmit={handleSubmit} noValidate>
                         <Form.Group className="mb-3">
                             <Form.Label>Name</Form.Label>
@@ -71,8 +93,18 @@ export default function Contact() {
                             <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
                         </Form.Group>
 
-                        <Button type="submit" variant="primary" className="w-100">Send Message</Button>
+                        <Button type="submit" className="custom-btn w-100">Send Message </Button>
                     </Form>
+
+                    {/* Social Links */}
+                    <div className="contact-social mt-4">
+                        <h4>Or connect with me</h4>
+                        <div className="social-icons">
+                            <a href="https://www.instagram.com/rnzcbrl/" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+                            <a href="https://github.com/reynzoe" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
+                            <a href="https://www.facebook.com/renzolouiscabral" target="_blank" rel="noopener noreferrer"><FaFacebookMessenger /></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

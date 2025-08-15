@@ -13,3 +13,7 @@ section {
 section:hover {
   background-color: #f9f9f9;
 }
+
+section {
+  scroll-margin-top: 90px; /* Adjust based on navbar height */
+}

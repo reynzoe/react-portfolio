@@ -1,18 +1,25 @@
 .navbar-transparent {
-    background: transparent;
-    transition: background 0.3s ease;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
 }
 
 .navbar-colored {
-    background: rgba(0, 0, 0, 0.85);
-    transition: background 0.3s ease;
+    background-color: rgb(140, 60, 60); /* Dark solid when scrolled or clicked */
+    transition: background-color 0.3s ease;
 }
 
 .nav-link-custom {
-    color: white !important;
-    transition: color 0.3s ease;
+    color: #150707 !important;
+    transition: color 0.2s ease;
 }
 
 .nav-link-custom:hover {
-    color: #fbc2eb !important;
+    color: #ffcc00 !important; /* Accent hover color */
 }
+
+.brand-custom {
+    font-size: 1.4rem;
+    color: white !important;
+}
+
+
