@@ -1,0 +1,29 @@
+.facts {
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-2);
+    overflow: hidden;
+}
+.fact {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 16px;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--line);
+}
+.fact:last-child { border-bottom: none; }
+.fact dt {
+    font-family: var(--font-head);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    font-weight: 500;
+    padding-top: 3px;
+}
+.fact dd { margin: 0; color: var(--text); }
+
+@media (max-width: 480px) {
+    .fact { grid-template-columns: 1fr; gap: 4px; }
+}

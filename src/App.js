@@ -2,19 +2,23 @@ import React from 'react';
 import PortfolioNavbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
+import EcoQuest from './components/EcoQuest';
 import Projects from './components/Projects';
+import Skills from './components/Skills';
 import Contact from './components/Contact';
-import Navbar from './components/Navbar';
-
 
 function App() {
     return (
         <>
-            <Hero />
-            <About />
-            <Projects />
-            <Contact />
-            <Navbar/>
+            <PortfolioNavbar />
+            <main>
+                <Hero />
+                <About />
+                <EcoQuest />
+                <Projects />
+                <Skills />
+                <Contact />
+            </main>
         </>
     );
 }

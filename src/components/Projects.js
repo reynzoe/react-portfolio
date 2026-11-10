@@ -1,267 +1,190 @@
 import React, { useState, useRef } from 'react';
-import { Card, Modal } from 'react-bootstrap';
-import { FaPortrait, FaGraduationCap, FaLaptop, FaPlayCircle  } from 'react-icons/fa';
-import './Projects.css';
+import { Container, Row, Col, Modal } from 'react-bootstrap';
+import { FaPlay, FaTimes, FaGithub } from 'react-icons/fa';
+import '../styles/Projects.css';
 
-// Art section images
-import art1 from '../assets/art1.jpg';
-import art2 from '../assets/art2.jpg';
-import art3 from '../assets/art3.jpeg';
-import art4 from '../assets/art4.jpg';
-import art5 from '../assets/art5.JPG';
-import art6 from '../assets/art6.jpeg';
-import art7 from '../assets/art7.JPG';
-import art8 from '../assets/art8.jpeg';
-import art9 from '../assets/art9.jpeg';
-import art10 from '../assets/art10.jpeg';
-import art11 from '../assets/art11.JPG';
-import art12 from '../assets/art12.JPG';
+import lib1 from '../assets/library/lib1.jpg';
+import lib2 from '../assets/library/lib2.jpg';
+import lib3 from '../assets/library/lib3.jpg';
+import lib4 from '../assets/library/lib4.jpg';
+import lib5 from '../assets/library/lib5.jpg';
+import libVideo from '../assets/library/lib_walkthrough.mp4';
 
-// Video
-import proj1 from '../assets/proj1.mp4';
-import proj2 from '../assets/proj2.mp4';
-import proj3 from '../assets/proj3.mp4';
+import wd1 from '../assets/wanderly/wd1.jpg';
+import wd2 from '../assets/wanderly/wd2.jpg';
+import wd3 from '../assets/wanderly/wd3.jpg';
+import wd4 from '../assets/wanderly/wd4.jpg';
+import wd5 from '../assets/wanderly/wd5.jpg';
+import wdVideo from '../assets/wanderly/wd_walkthrough.mp4';
 
-// Thumbnails
-import proj1Thumb from '../assets/proj1_thumb.jpeg';
-import proj2Thumb from '../assets/proj2_thumb.jpeg';
-import proj3Thumb from '../assets/proj3_thumb.jpeg';
+import animoVideo from '../assets/proj3.mp4';
+import animoThumb from '../assets/proj2_thumb.jpeg';
+import recipeVideo from '../assets/proj1.mp4';
+import recipeThumb from '../assets/proj3_thumb.jpeg';
+
+const mobileApps = [
+    {
+        title: 'Shelby’s: Library Management System',
+        tag: 'Mobile · Full-stack',
+        points: [
+            'Role-based app: librarians manage books, users, circulation and overdue tracking; students register, search, borrow, return and view their history.',
+            'Built a Node.js REST API with server-side validation, 14-day due dates and automatic late-fee calculation, with an optional Supabase-backed catalogue.',
+        ],
+        stack: ['Expo (React Native)', 'TypeScript', 'Node.js', 'REST API', 'Supabase'],
+        shots: [
+            { src: lib1, label: 'Welcome' },
+            { src: lib2, label: 'Student dashboard' },
+            { src: lib3, label: 'Catalogue' },
+            { src: lib4, label: 'Librarian circulation desk' },
+            { src: lib5, label: 'My loans' },
+        ],
+        video: libVideo,
+        code: 'https://github.com/reynzoe/final_project_group6_mobapp',
+    },
+    {
+        title: 'Wanderly: Travel Diary',
+        tag: 'Mobile · Device features',
+        points: [
+            'A photo journal that uses the phone’s hardware: in-app camera with pinch-to-zoom, GPS location turned into a street address, and a local notification when a memory is saved.',
+            'Entries are stamped with place, date and time automatically, can be rotated, searched and edited, and persist offline with AsyncStorage. Includes light and dark themes.',
+        ],
+        stack: ['Expo (React Native)', 'TypeScript', 'Expo Router', 'expo-camera', 'expo-location', 'expo-notifications'],
+        shots: [
+            { src: wd1, label: 'In-app camera' },
+            { src: wd2, label: 'Auto location & time' },
+            { src: wd3, label: 'Journal' },
+            { src: wd4, label: 'Entry details' },
+            { src: wd5, label: 'Dark mode' },
+        ],
+        video: wdVideo,
+        code: 'https://github.com/reynzoe/device-features-react-native',
+    },
+];
+
+const earlier = [
+    {
+        title: 'RecipeNest',
+        tag: 'AI web app prototype',
+        desc: 'An AI-powered kitchen companion for smart meal planning and inventory management.',
+        video: recipeVideo,
+        thumb: recipeThumb,
+    },
+    {
+        title: 'AnimoMatch',
+        tag: 'UI / UX · Figma',
+        desc: 'A clickable prototype for a study-buddy matching app for De La Salle Lipa students.',
+        video: animoVideo,
+        thumb: animoThumb,
+    },
+];
+
+function PhoneShowcase({ app, onImage, onVideo }) {
+    return (
+        <article className="app-show" data-aos="fade-up">
+            <div className="app-show-text">
+                <p className="proj-tag">{app.tag}</p>
+                <h3>{app.title}</h3>
+                <ul>
+                    {app.points.map((p) => <li key={p}>{p}</li>)}
+                </ul>
+                <div className="chips mb-4">
+                    {app.stack.map((s) => <span className="chip" key={s}>{s}</span>)}
+                </div>
+                <div className="app-actions">
+                    {app.video && (
+                        <button type="button" className="btn-solid" onClick={() => onVideo(app.video)}>
+                            <FaPlay size={12} /> Watch walkthrough
+                        </button>
+                    )}
+                    {app.code && (
+                        <a href={app.code} target="_blank" rel="noopener noreferrer" className="btn-ghost">
+                            <FaGithub /> View code
+                        </a>
+                    )}
+                </div>
+            </div>
+            <div className="phones" role="list">
+                {app.shots.map((s) => (
+                    <button type="button" key={s.label} className="phone" role="listitem" onClick={() => onImage(s)} aria-label={`Open screenshot: ${s.label}`}>
+                        <img src={s.src} alt={s.label} loading="lazy" />
+                        <span className="phone-label">{s.label}</span>
+                    </button>
+                ))}
+            </div>
+        </article>
+    );
+}
 
 export default function Projects() {
-    const [showModal, setShowModal] = useState(false);
-    const [selectedImg, setSelectedImg] = useState(null);
-    const [selectedVideo, setSelectedVideo] = useState(null);
-    const [hoveredVideo, setHoveredVideo] = useState(null);
-    const videoRefs = useRef({});
+    const [video, setVideo] = useState(null);
+    const [image, setImage] = useState(null);
+    const refs = useRef({});
 
-    const artProjects = [
-        art1, art2, art3, art4, art5, art6,
-        art7, art8, art9, art10, art11, art12
-    ];
-
-    const appProjects = [
-        {
-            icon: <FaPortrait />,
-            title: 'Previous Portfolio',
-            desc: 'A personal portfolio built with HTML and JavaScript.',
-            video: proj2,
-            thumbnail: proj1Thumb,
-            type: 'video'
-        },
-        {
-            icon: <FaGraduationCap />,
-            title: 'AnimoMatch UI',
-            desc: 'Figma prototype for AnimoMatch, matchmaking app for a studybuddy.',
-            video: proj3,
-            thumbnail: proj2Thumb,
-            type: 'video'
-        },
-        {
-            icon: <FaLaptop />,
-            title: 'RecipeNest Prototype',
-            desc: 'A sleek web app prototype for managing recipes.',
-            video: proj1,
-            thumbnail: proj3Thumb,
-            type: 'video'
-        }
-    ];
-
-    const openImage = (img) => {
-        setSelectedImg(img);
-        setSelectedVideo(null);
-        setShowModal(true);
-    };
-
-    const openVideo = (video) => {
-        setSelectedVideo(video);
-        setSelectedImg(null);
-        setShowModal(true);
-    };
-
-    const handleMouseEnter = (index, video) => {
-        setHoveredVideo(index);
-
-        // Start playing the video after a short delay (like YouTube)
-        setTimeout(() => {
-            if (videoRefs.current[index] && hoveredVideo === index) {
-                videoRefs.current[index].currentTime = 0; // Start from beginning
-                videoRefs.current[index].play().catch(e => {
-                    // Handle autoplay restrictions
-                    console.log('Autoplay prevented:', e);
-                });
-            }
-        }, 500); // 500ms delay before starting preview
-    };
-
-    const handleMouseLeave = (index) => {
-        setHoveredVideo(null);
-
-        // Pause and reset the video
-        if (videoRefs.current[index]) {
-            videoRefs.current[index].pause();
-            videoRefs.current[index].currentTime = 0;
+    const preview = (i, play) => {
+        const v = refs.current[i];
+        if (!v) return;
+        if (play) {
+            v.currentTime = 0;
+            v.play().catch(() => {});
+        } else {
+            v.pause();
         }
     };
 
     return (
-        <section id="projects" className="p-5 bg-light text-center">
-            {/* Art Gallery */}
-            <h2 className="mb-5 fw-bold" data-aos="fade-up">My Gallery</h2>
-            <div className="art-gallery" data-aos="fade-up">
-                {artProjects.map((img, i) => (
-                    <div
-                        key={i}
-                        className="art-item"
-                        onClick={() => openImage(img)}
-                        style={{ cursor: 'pointer' }}
-                    >
-                        <img
-                            src={img}
-                            alt={`Art ${i + 1}`}
-                            className="img-fluid"
-                        />
-                    </div>
+        <section id="projects" className="section">
+            <Container>
+                <p className="section-kicker" data-aos="fade-up">03 · More projects</p>
+                <h2 className="section-title" data-aos="fade-up">Other things I’ve built</h2>
+
+                {mobileApps.map((app) => (
+                    <PhoneShowcase key={app.title} app={app} onImage={setImage} onVideo={setVideo} />
                 ))}
-            </div>
 
-            {/* Modal for both images & video */}
-            <Modal
-                show={showModal}
-                onHide={() => setShowModal(false)}
-                centered
-                size="lg"
-                contentClassName="custom-modal"
-            >
-                {/* Close button inside modal frame but above the image/video */}
-                <button
-                    onClick={() => setShowModal(false)}
-                    style={{
-                        position: 'absolute',
-                        top: '10px', // inside modal header area
-                        right: '10px',
-                        background: 'black',
-                        border: 'none',
-                        color: 'white',
-                        fontSize: '1.5rem',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderRadius: '50%',
-                        width: '40px',
-                        height: '40px',
-                        cursor: 'pointer',
-                        zIndex: 2000,
-                        opacity: 0.6,
-                        transition: 'opacity 0.3s ease, transform 0.2s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.opacity = 1;
-                        e.currentTarget.style.transform = 'scale(1.1)';
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.opacity = 0.6;
-                        e.currentTarget.style.transform = 'scale(1)';
-                    }}
-                >
-                    &times;
-                </button>
+                <Row className="g-4 mt-1">
+                    {earlier.map((p, i) => (
+                        <Col md={6} key={p.title} data-aos="fade-up" data-aos-delay={i * 100}>
+                            <button
+                                type="button"
+                                className="proj-card"
+                                onClick={() => setVideo(p.video)}
+                                onMouseEnter={() => preview(i, true)}
+                                onMouseLeave={() => preview(i, false)}
+                            >
+                                <div className="proj-media">
+                                    <img src={p.thumb} alt="" />
+                                    <video ref={(el) => { refs.current[i] = el; }} src={p.video} muted playsInline preload="none" />
+                                    <span className="proj-play"><FaPlay /></span>
+                                </div>
+                                <div className="proj-body">
+                                    <p className="proj-tag">{p.tag}</p>
+                                    <h3>{p.title}</h3>
+                                    <p>{p.desc}</p>
+                                </div>
+                            </button>
+                        </Col>
+                    ))}
+                </Row>
 
-                <Modal.Body
-                    className="p-0 text-center"
-                    style={{
-                        position: 'relative',
-                        backgroundColor: 'transparent',
-                    }}
-                >
-                    {selectedImg && (
-                        <img
-                            src={selectedImg}
-                            alt="Full artwork"
-                            className="img-fluid"
-                            style={{
-                                maxHeight: '90vh',
-                                objectFit: 'contain',
-                            }}
-                        />
-                    )}
-                    {selectedVideo && (
-                        <video
-                            src={selectedVideo}
-                            className="w-100"
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            controls
-                            style={{
-                                outline: 'none',
-                                maxHeight: '90vh',
-                            }}
-                        />
-                    )}
-                </Modal.Body>
+                <p className="more-link" data-aos="fade-up">
+                    More code on <a href="https://github.com/reynzoe" target="_blank" rel="noopener noreferrer">github.com/reynzoe</a>
+                </p>
+            </Container>
+
+            <Modal show={!!video} onHide={() => setVideo(null)} centered size="lg" contentClassName="lightbox">
+                <button type="button" className="lb-close" onClick={() => setVideo(null)} aria-label="Close"><FaTimes /></button>
+                {video && <video src={video} className="lb-img" autoPlay controls playsInline />}
             </Modal>
 
-
-            {/* Apps & Software */}
-            <h2 className="mt-5 mb-5 fw-bold" data-aos="fade-up"> Software Gallery</h2>
-            <div className="container">
-                <div className="row justify-content-center">
-                    {appProjects.map((p, i) => (
-                        <div
-                            className="col-md-4 mb-4"
-                            key={i}
-                            data-aos="fade-up"
-                            data-aos-delay={i * 150}
-                        >
-                            <Card
-                                className="project-card h-100 position-relative overflow-hidden"
-                                onClick={() =>
-                                    p.type === 'video'
-                                        ? openVideo(p.video)
-                                        : window.open(p.link, '_blank')
-                                }
-                                style={{ cursor: 'pointer' }}
-                                onMouseEnter={() => p.type === 'video' && handleMouseEnter(i, p.video)}
-                                onMouseLeave={() => p.type === 'video' && handleMouseLeave(i)}
-                            >
-                                <div className="project-thumbnail-wrapper position-relative">
-                                    {/* Static thumbnail */}
-                                    <img
-                                        src={p.thumbnail}
-                                        alt={p.title}
-                                        className={`project-thumbnail ${hoveredVideo === i ? 'fade-out' : ''}`}
-                                    />
-
-                                    {/* Video preview (hidden by default) */}
-                                    {p.type === 'video' && (
-                                        <video
-                                            ref={el => videoRefs.current[i] = el}
-                                            src={p.video}
-                                            className={`project-video-preview ${hoveredVideo === i ? 'fade-in' : ''}`}
-                                            muted
-                                            playsInline
-                                            preload="metadata"
-                                        />
-                                    )}
-
-                                    {/* Play button overlay */}
-                                    {p.type === 'video' && (
-                                        <div className={`video-overlay d-flex justify-content-center align-items-center ${hoveredVideo === i ? 'playing' : ''}`}>
-                                            <FaPlayCircle size={50} color="white" />
-                                        </div>
-                                    )}
-                                </div>
-
-                                <Card.Body>
-                                    <Card.Title>{p.title}</Card.Title>
-                                    <Card.Text>{p.desc}</Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </div>
-                    ))}
-                </div>
-            </div>
+            <Modal show={!!image} onHide={() => setImage(null)} centered contentClassName="lightbox lightbox-phone">
+                <button type="button" className="lb-close" onClick={() => setImage(null)} aria-label="Close"><FaTimes /></button>
+                {image && (
+                    <>
+                        <img src={image.src} alt={image.label} className="lb-img" />
+                        <p className="lb-caption">{image.label}</p>
+                    </>
+                )}
+            </Modal>
         </section>
     );
 }
